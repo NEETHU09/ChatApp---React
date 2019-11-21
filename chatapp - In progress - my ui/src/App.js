@@ -1,66 +1,92 @@
-import React from 'react';
-import './App.css';
-import logo from './logo.svg';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./styles.css";
+
+var spanStyle = {
+  color: "blue",
+  height: "100"
+};
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       message: []
-    }
+    };
   }
 
-  messageCall = (childData) => {
+  messageCall = childData => {
     this.setState({
       message: [...this.state.message, childData]
-    })
-  }
+    });
+  };
 
   render() {
-    const items = this.state.message.map(function(item){
-      return <div id="msg"><span>{item}</span></div>
+    const items = this.state.message.map(function(item) {
+      return (
+        <div id="msg">
+          <span>{item}</span>
+        </div>
+      );
     });
 
     return (
-      <div>        
-        <div className = "header">
-          <h4 className = "title">Simple Chat App</h4>
-          <span>***************************</span>
-        </div> 
-        <div>
-              {items}
-        </div>
-        <Child parentCall={this.messageCall} />
+      <div className="main">
+        <table className="table">
+          <thead>
+            <h1 className="title">Simple Chat App</h1>
+            <span>***************************************************</span>
+          </thead>
+          <tbody>
+            <div className="Items">
+              <span style={spanStyle}>{items}</span>
+            </div>
+          </tbody>
+          <Child parentCall={this.messageCall} />
+        </table>
       </div>
     );
   }
 }
 
-class Child extends React.Component{
-
-  onChange = (e) => {
+class Child extends React.Component {
+  onChange = e => {
     this.setState({
-        value: e.target.value
-    })
-}
+      value: e.target.value
+    });
+  };
 
   sendData = () => {
     this.props.parentCall(this.state.value);
-  }
 
-  render() {     
-    return(
+    // text.value = ''
+    // this.setState({
+    //   value: ""
+    // });
+  };
+
+  render() {
+    return (
       <div>
-        <div className = "container">
-          <div className = "small-container">                       
-            <input type="text" id="text" onChange={this.onChange} placeholder="Type here"></input>
-            <button onClick={this.sendData}>Send</button>
-          </div> 
-        </div>
+        <table className="smalltable">
+          <input
+            className="msgtext"
+            type="text"
+            id="text"
+            name="text"
+            onChange={this.onChange}
+            placeholder="Type here"
+          />
+          <button onClick={this.sendData} className="btn">
+            Send
+          </button>
+        </table>
       </div>
-    )
+    );
   }
 }
 
 export default App;
 
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
