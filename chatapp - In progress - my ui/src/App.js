@@ -1,9 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import "./styles.css";
+import "./App.css";
 
 var spanStyle = {
-  color: "blue",
+  color: "green",
   height: "100"
 };
 
@@ -87,6 +86,3 @@ class Child extends React.Component {
 }
 
 export default App;
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
